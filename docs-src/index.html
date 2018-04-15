@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Metronome Example</title>
+    <style>
+    </style>
+    <link rel="stylesheet" href="docs.min.css">
+    <script src="metronome.min.js"></script>
+    <style>
+      h4 { margin-top: 0 }
+    </style>
+  </head>
+  <body>
+    <div class="p-2 mx-auto" style="max-width:660px">
+
+      <h1>Metronome
+        <div class="float-right h4 pt-1">
+          Bar <span id="bar-count" class="green px-1">1</span>
+          Beat <span id="beat-count" class="green px-1">1</span>
+        </div>
+      </h1>
+
+      <div class="row">
+        <div class="col-4 pr-1">
+          <button class="btn bg-blue white full-width" onclick="metronome.start()">Start</button>
+        </div>
+        <div class="col-4 px-1">
+          <button class="btn bg-yellow full-width" onclick="metronome.pause()">Pause</button>
+        </div>
+        <div class="col-4 pl-1">
+          <button class="btn bg-red white full-width" onclick="metronome.stop()">Stop</button>
+        </div>
+      </div>
+
+      <hr>
+      <h4>Tempo
+        <div class="float-right">
+          <span id="tempo" class="green px-1">60</span> beats per minute
+        </div>
+      </h4>
+
+      <input type="range" class="full-width" name="tempo" min="40" max="220" value="60">
+
+      <hr>
+      <h4>Volume
+        <div class="float-right">
+          <span id="volume" class="green px-1">40</span> %
+        </div>
+      </h4>
+
+      <input type="range" class="full-width" name="volume" min="0" max="100" value="40">
+
+    </div>
+
+    <script>
+
+      var $ = function(sel) { return document.body.querySelector(sel) }
+      var $input = {
+        tempo: $('[name="tempo"]'),
+        volume: $('[name="volume"]')
+      }
+      var $display = {
+        tempo: $('#tempo'),
+        volume: $('#volume'),
+        bar: $('#bar-count'),
+        beat: $('#beat-count')
+      }
+
+      metronome.setTempo($input.tempo.value)
+      metronome.setVolume($input.volume.value)
+
+      $input.tempo.addEventListener('input', function(e) {
+        var val = $input.tempo.value
+        metronome.setTempo(val)
+        $display.tempo.innerText = val
+      })
+
+      $input.volume.addEventListener('input', function(e) {
+        var val = $input.volume.value
+        metronome.setVolume(val)
+        $display.volume.innerText = val
+      })
+
+      function displayPosition(bar, beat) {
+        $display.bar.innerText = bar
+        $display.beat.innerText = beat
+      }
+
+      metronome.on('beat', function(data) {
+
+        console.log('beat', data.beat)
+
+        displayPosition(
+          Math.floor(data.beat / 4) + 1,
+          (data.beat % 4) + 1
+        )
+      })
+
+      metronome.on('stop', function(data) {
+        displayPosition(1, 1)
+      })
+
+    </script>
+  </body>
+</html>

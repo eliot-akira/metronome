@@ -1,0 +1,1 @@
+window.metronome = require('./index')()

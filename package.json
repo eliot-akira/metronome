@@ -1,0 +1,17 @@
+{
+  "name": "metronome",
+  "version": "0.0.1",
+  "description": "Metronome",
+  "repository": "https://github.com/eliot-akira/metronome",
+  "main": "index.js",
+  "author": "Eliot Akira",
+  "license": "MIT",
+  "scripts": {
+    "dev": "NODE_ENV=development mnb dev",
+    "build": "NODE_ENV=production mnb build",
+    "clean": "mnb clean"
+  },
+  "devDependencies": {
+    "mnao-builder": "^0.7.0"
+  }
+}
