@@ -11,7 +11,7 @@ module.exports = (config) => {
     browserify: [{
       src: 'export.js',
       dest: 'docs/metronome.min.js',
-      watch: ['**/*.js', '!build/**'],
+      watch: ['**/*.js', '!docs/**'],
       alias
     }],
     sass: [{
