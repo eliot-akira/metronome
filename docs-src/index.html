@@ -12,7 +12,9 @@
     </style>
   </head>
   <body>
+
     <% include link.html %>
+
     <div class="p-2 mx-auto" style="max-width:660px">
 
       <h1>Metronome
@@ -37,11 +39,11 @@
       <hr>
       <h4>Tempo
         <div class="float-right">
-          <span id="tempo" class="green px-1">60</span> beats per minute
+          <span id="tempo" class="green px-1">120</span> beats per minute
         </div>
       </h4>
 
-      <input type="range" class="full-width" name="tempo" min="40" max="220" value="60">
+      <input type="range" class="full-width" name="tempo" min="40" max="220" value="120">
 
       <hr>
       <h4>Volume
@@ -88,13 +90,13 @@
         $display.beat.innerText = beat
       }
 
-      metronome.on('beat', function(data) {
+      metronome.on('beat', function({ position }) {
 
-        console.log('beat', data.beat)
+        console.log('beat', position.totalBeats)
 
         displayPosition(
-          Math.floor(data.beat / 4) + 1,
-          (data.beat % 4) + 1
+          position.bars,
+          position.beats
         )
       })
 
