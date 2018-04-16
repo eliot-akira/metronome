@@ -31,6 +31,8 @@ metronome.setTempo(80)
 
 ### Events
 
+#### `beat`
+
 ```js
 metronome.on('beat', function(event) {
   const pos = event.position
@@ -38,12 +40,16 @@ metronome.on('beat', function(event) {
   console.log('Bar count', pos.bars)
   console.log('Beat count', pos.beats)
 })
+```
 
+#### `play`, `pause`, `resume`, `stop`
+
+```js
 metronome.on('play', function() {
   console.log('Start playing')
 })
 
-metronome.on('play', function() {
+metronome.on('stop', function() {
   console.log('Stopped')
 })
 ```
